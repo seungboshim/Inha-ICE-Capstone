@@ -1,3 +1,5 @@
+'use client';
+
 import LoginButtons from "@/components/login/loginButtons";
 import LoginInput from "@/components/login/loginInput";
 

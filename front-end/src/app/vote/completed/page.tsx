@@ -1,3 +1,5 @@
+'use client';
+
 import CompletedTab from "@/components/votelist/completedTab";
 
 export default function Completed() {
