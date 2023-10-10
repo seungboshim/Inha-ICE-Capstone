@@ -1,8 +1,9 @@
-import Header from '@/components/layout/header'
+import Header from '../components/layout/header'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import localFont from 'next/font/local'
+import RecoilProvider from './recoilProvider'
 
 const pretendard = localFont({
   src: "../fonts/PretendardVariable.woff2",
@@ -20,10 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={pretendard.className}>
-        <Header />
-        {children}
-      </body>
+      <RecoilProvider>
+        <body className={pretendard.className}>
+          {children}
+        </body>
+      </RecoilProvider>
     </html>
   )
 }

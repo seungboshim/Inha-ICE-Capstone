@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
 
-interface VoteMainProps {
+interface AdminVoteMainProps {
     ballotID: number;
 }
 
 
-export default function VoteMain({ballotID} : VoteMainProps) {
+export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
     const [ballotImage, setBallotImage] = useState('');
     const [ballotName, setBallotName] = useState('');
     const [ballotMinAge, SetBallotMinAge] = useState(0);
@@ -77,7 +77,7 @@ export default function VoteMain({ballotID} : VoteMainProps) {
         return (
             <div>
                 <button className="w-40 h-20 bg-primary rounded-lg">
-                    <span className="text-xl font-bold text-white">투표하기</span>
+                    <span className="text-xl font-bold text-white">후보자 추가</span>
                 </button>
             </div>
         )
@@ -102,7 +102,10 @@ export default function VoteMain({ballotID} : VoteMainProps) {
             </div>
             <div className="flex w-3/4 flex-col ml-4 justify-between">
                 <div className="flex flex-col">
-                    <span className="font-bold text-2xl">{ballotName}</span>
+                    <div className="flex justify-between">
+                        <span className="font-bold text-2xl">{ballotName}</span>
+                        <button>수정하기</button>
+                    </div>
                     <span className="py-4 border-b border-primary">{ballotBriefDescription}</span>
                     <div className="flex justify-end py-4 mb-8">
                         <div className="flex flex-col font-bold items-end">

@@ -1,13 +1,13 @@
 'use client';
 
 import Header from "@/components/layout/header";
-import Profile from "../../components/mypage/profile";
+import AdminProfile from "@/components/mypage/adminProfile";
 
 export default function MyPage() {
     return ( 
         <div>
             <Header />
-            <Profile />
+            <AdminProfile />
         </div>
     )
 }
