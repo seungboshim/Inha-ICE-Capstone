@@ -2,7 +2,7 @@
 
 import Header from "@/components/layout/header";
 import OngoingTab from "../../../components/votelist/ongoingTab"
-import VoteItemList from "../../../components/votelist/voteItemList"
+import OngoingVoteItemList from "@/components/votelist/ongoingVoteItemList";
 
 export default function Ongoing() {
     return (
@@ -10,7 +10,7 @@ export default function Ongoing() {
         <Header />
         <div className="mx-24">
             <OngoingTab />
-            <VoteItemList />
+            <OngoingVoteItemList />
         </div>
         </>
     )

@@ -63,7 +63,7 @@ export default function Profile() {
                     <span>{region}</span>
                 </div>
                 <div>
-                <button className="px-8 py-4 rounded-lg bg-primary text-white">
+                <button className="px-8 py-4 mb-8 rounded-lg bg-primary text-white">
                     수정하기
                 </button>
                 </div>

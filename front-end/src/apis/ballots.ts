@@ -1,6 +1,7 @@
 import { Server } from "./setting";
 
 export interface BallotProps {
+    ballotID: number,
     ballotName: String,
     ballotBriefDescription: String,
     ballotDetailDescription: String,
@@ -9,9 +10,16 @@ export interface BallotProps {
     ballotImage: String,
     ballotMinAge: Number,
     ballotMaxAge: Number,
-    ballotStatus: String, // boolean 으로 변경 염두
+    ballotStatus: String,
     ballotSubjectGender: String,
     ballotSubjectRegion: String,
+}
+
+export const getBallotListContent = async (status: string) => {
+    const result = await Server.get(`/voting/ballots?status=${status}`);
+    console.log(status)
+    console.log(result.data.content)
+    return result.data.content;
 }
 
 export const getBallotListData = async (status: string, field: string) => {
