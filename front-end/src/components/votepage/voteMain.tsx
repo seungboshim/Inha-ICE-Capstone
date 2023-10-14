@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
+import CandidatesModal from "../modal/candidatesModal"
 
 interface VoteMainProps {
     ballotID: number;
@@ -74,9 +75,20 @@ export default function VoteMain({ballotID} : VoteMainProps) {
     }, [])
 
     const VoteButton = () => {
+        const [modal, setModal] = useState(false);
+
+        const handleModal = () => {
+            setModal(true);
+            console.log('open')
+        }
+
+        const handleModalClose = () => {
+            setModal(false);
+        }
+
         return (
             <div>
-                <button className="w-40 h-20 bg-primary rounded-lg">
+                <button className="w-40 h-20 bg-primary rounded-lg" onClick={() => handleModal}>
                     <span className="text-xl font-bold text-white">투표하기</span>
                 </button>
             </div>

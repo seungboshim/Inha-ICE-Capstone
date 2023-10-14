@@ -6,6 +6,7 @@ import { RiFileAddFill } from "react-icons/ri"
 // import Calendar from "./calendar";
 import { Server } from "@/apis/setting";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function VotePost() {
     const router = useRouter();
@@ -68,17 +69,38 @@ export default function VotePost() {
         && isEndDateTimeValid && isSubjectAgeValid && isGenderValid 
         && isRegionValid && isDetailDescriptionValid;
 
+        const updatedFormData = {
+            ...formData,
+            ballotStartDateTime: `${formData.ballotStartDateTime}T00:00:00`,
+            ballotEndDateTime: `${formData.ballotEndDateTime}T00:00:00`
+        };
+
         // 검증 완료시
         if (isAllValid) {
-            const dataToSend = new FormData();
-            
-            // ballotRequestDto
-            dataToSend.append('ballotRequestDto', JSON.stringify(formData));
 
+            const dataToSend = new FormData();
+            const formDataString = JSON.stringify(updatedFormData);
+            // ballotRequestDto
+
+            const blob = new Blob([formDataString], { type: "application/json" });
+            dataToSend.append('ballotRequestDto', blob);
             // ballotImage
             if (selectedImage) {
                 dataToSend.append('ballotImage', selectedImage);
             }
+
+            for (let pair of dataToSend.entries()) {
+                console.log(pair[0], pair[1]);
+            }
+
+            // Server.post('/admins/voting/ballots', dataToSend)
+            //     .then(response => {
+            //         console.log(response.data)
+            //     })
+            //     .catch(error => {
+            //         console.error(error)
+            //         alert(error.response.data.message)
+            //     })
 
             try {
                 const response = await Server.post('/admins/voting/ballots', dataToSend);
@@ -212,14 +234,14 @@ export default function VotePost() {
                                     className={`p-4 border ${validationErrors.startDateTimeError ? 'border-warning' : 'border-grey'} rounded-lg flex-grow mr-4`}
                                     type="date"
                                     name="ballotStartDateTime"
-                                    value={formData.ballotStartDateTime}
+                                    value={`${formData.ballotStartDateTime}`}
                                     onChange={handleChange}
                                 />
                                 <input
                                     className={`p-4 border ${validationErrors.endDateTimeError ? 'border-warning' : 'border-grey'} rounded-lg flex-grow`}
                                     type="date"
                                     name="ballotEndDateTime"
-                                    value={formData.ballotEndDateTime}
+                                    value={`${formData.ballotEndDateTime}`}
                                     onChange={handleChange}                                
                                 />
                                 {/* <SelectDates title='시작일' value={startDate} />
@@ -263,7 +285,7 @@ export default function VotePost() {
                                     onChange={handleChange}
                                 >
                                     <option value="">거주지</option>
-                                    <option value="전국">전국</option>
+                                    <option value="null">전국</option>
                                     <option value="서울">서울</option>
                                     <option value="경기도">경기도</option>
                                     <option value="강원도">강원도</option>
@@ -283,7 +305,7 @@ export default function VotePost() {
                                     onChange={handleChange}
                                 >
                                     <option value="">성별</option>
-                                    <option value="전 성별">전 성별</option>
+                                    <option value="null">전 성별</option>
                                     <option value="남성">남성</option>
                                     <option value="여성">여성</option>
                                 </select>

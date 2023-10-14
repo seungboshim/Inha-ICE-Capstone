@@ -1,20 +1,5 @@
 import { Server } from "./setting";
 
-export interface BallotProps {
-    ballotID: number,
-    ballotName: String,
-    ballotBriefDescription: String,
-    ballotDetailDescription: String,
-    ballotStartDateTime: Date,
-    ballotEndDateTime: Date,
-    ballotImage: String,
-    ballotMinAge: Number,
-    ballotMaxAge: Number,
-    ballotStatus: String,
-    ballotSubjectGender: String,
-    ballotSubjectRegion: String,
-}
-
 export const getBallotListContent = async (status: string) => {
     const result = await Server.get(`/voting/ballots?status=${status}`);
     console.log(status)

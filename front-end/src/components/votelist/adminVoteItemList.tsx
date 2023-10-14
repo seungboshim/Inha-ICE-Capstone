@@ -2,22 +2,10 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { getBallotList, getBallotData, getBallotListContent, getBallotListData } from "@/apis/ballots";
+import { Ballot } from "@/apis/types";
 import { useSearchParams } from "next/navigation";
 import VoteItem from "./voteItem";
 
-type Ballot = {
-    ballotId: number,
-    ballotName: string,
-    ballotStartDateTime: string,
-    ballotEndDateTime: string,
-    ballotMinAge: number,
-    ballotMaxAge: number,
-    ballotSubjectRegion: string,
-    ballotSubjectGender: string,
-    ballotBriefDescription: string,
-    ballotImage: string,
-    ballotStatus: string,
-}
 
 export default function AdminVoteItemList() {
     const [totalPages, setTotalPages] = useState(0);
