@@ -35,6 +35,11 @@ export default function VotePost() {
     });
 
     const handleChange = (e: any) => {
+        let value = e.target.value;
+        if (value === "null") {
+            value = null;
+        }
+        
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -282,10 +287,11 @@ export default function VotePost() {
                                     className={`w-1/5 p-4 border ${validationErrors.subjectRegionError ? 'border-warning' : 'border-grey'} rounded-lg flex-grow mr-4`}
                                     name="ballotSubjectRegion"
                                     value={formData.ballotSubjectRegion}
+                                    
                                     onChange={handleChange}
                                 >
                                     <option value="">거주지</option>
-                                    <option value="null">전국</option>
+                                    <option value="전국">전국</option>
                                     <option value="서울">서울</option>
                                     <option value="경기도">경기도</option>
                                     <option value="강원도">강원도</option>
@@ -305,7 +311,7 @@ export default function VotePost() {
                                     onChange={handleChange}
                                 >
                                     <option value="">성별</option>
-                                    <option value="null">전 성별</option>
+                                    <option value="성별 무관">성별 무관</option>
                                     <option value="남성">남성</option>
                                     <option value="여성">여성</option>
                                 </select>
