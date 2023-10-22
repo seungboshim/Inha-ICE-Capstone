@@ -59,10 +59,18 @@ export default function VoteItem( {ballotID}: VoteItemProps ) {
             setBallotMaxAge(maxAge);
         })
         getBallotData(ballotID, 'ballotSubjectGender').then((gender) => {
-            setBallotSubjectGender(gender);
+            if (gender == null) {
+                setBallotSubjectGender("전 성별");
+            } else {
+                setBallotSubjectGender(gender);
+            }
         })
         getBallotData(ballotID, 'ballotSubjectRegion').then((region) => {
-            setBallotSubjectRegion(region);
+            if (region == null) {
+                setBallotSubjectRegion("전국");
+            } else {
+                setBallotSubjectRegion(region);
+            }
         })
         getBallotData(ballotID, 'ballotBriefDescription').then((brief) => {
             setBallotBriefDescription(brief);

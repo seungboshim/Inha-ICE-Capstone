@@ -44,7 +44,7 @@ export default function AdminVoteItemList() {
                 // contents 배열의 객체에서 ballotId 사용
                 ballots.map((item: Ballot) => {
                     return (
-                        <Link href={`/ballot/${item.ballotId}`} key={item.ballotId}>
+                        <Link href={`/ballot/admin/${item.ballotId}`} key={item.ballotId}>
                             <VoteItem ballotID={item.ballotId} />
                         </Link>
                     )

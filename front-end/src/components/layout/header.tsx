@@ -1,15 +1,16 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { logout } from "../../apis/login";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
 import { isLoggedInState } from "@/recoil/LoginAtom";
+import { getMemberData } from "@/apis/member";
 
 export default function Header() {
     const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-
+    const [email, setEmail] = useState('');
     const router = useRouter();
 
     useEffect(() => {
@@ -21,6 +22,12 @@ export default function Header() {
             // router.events.off('routeChangeComplete', checkLoginStatus);
         };
     });
+
+    useEffect(() => {
+        getMemberData('memberEmail').then((memberEmail) => {
+            setEmail(memberEmail);
+        })
+    }, [])
 
     const checkLoginStatus = () => {
         const token = localStorage.getItem('access');
@@ -44,10 +51,19 @@ export default function Header() {
                         <Link href={'/ballot/ongoing'}>메인</Link>
                     </div>
                     <div className="mx-4 flex">
-                        <Link href={'/mypage'}>
-                            <div className="mx-4">마이페이지</div>
-                            {/** TODO : 관리자일 경우 admin 마이페이지로 라우팅 */}
-                        </Link>
+                        {email === "admin@gmail.com" ? (
+                        <>
+                            <Link href={'/mypage/admin'}>
+                                <div className="mx-4">마이페이지</div>
+                            </Link>
+                        </>
+                        ) : (
+                        <>
+                            <Link href={'/mypage'}>
+                                <div className="mx-4">마이페이지</div>
+                            </Link>                            
+                        </>
+                        )}
                         <button
                             onClick={handleLogout}
                         >

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
+import AdminCandidatesModal from "../modal/candidatesModal";
 
 interface AdminVoteMainProps {
     ballotID: number;
@@ -60,10 +61,18 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
             setBallotMaxAge(maxAge);
         })
         getBallotData(ballotID, 'ballotSubjectGender').then((gender) => {
-            setBallotSubjectGender(gender);
+            if (gender == null) {
+                setBallotSubjectGender("전 성별");
+            } else {
+                setBallotSubjectGender(gender);
+            }
         })
         getBallotData(ballotID, 'ballotSubjectRegion').then((region) => {
-            setBallotSubjectRegion(region);
+            if (region == null) {
+                setBallotSubjectRegion("전국");
+            } else {
+                setBallotSubjectRegion(region);
+            }
         })
         getBallotData(ballotID, 'ballotBriefDescription').then((brief) => {
             setBallotBriefDescription(brief);
@@ -73,10 +82,21 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
         })
     }, [])
 
+    const [modal, setModal] = useState(false);
+
     const VoteButton = () => {
+        const handleModal = () => {
+            setModal(true);
+            console.log('open')
+        }
+
+        const handleModalClose = () => {
+            setModal(false);
+        }
+
         return (
             <div>
-                <button className="w-40 h-20 bg-primary rounded-lg">
+                <button className="w-40 h-20 bg-primary rounded-lg" onClick={handleModal}>
                     <span className="text-xl font-bold text-white">후보자 추가</span>
                 </button>
             </div>
@@ -119,6 +139,11 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
                     <VoteButton />
                 </div>
             </div>
+            {modal && (
+                <AdminCandidatesModal setIsModal={setModal} ballotId={ballotID}/>
+            )
+
+            }
         </div>
     )
 }

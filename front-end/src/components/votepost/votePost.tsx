@@ -104,7 +104,7 @@ export default function VotePost() {
             //     })
             //     .catch(error => {
             //         console.error(error)
-            //         alert(error.response.data.message)
+            //         alert(error.response.data.message.path)
             //     })
 
             try {
@@ -112,7 +112,7 @@ export default function VotePost() {
                 console.log(response.data);  // 응답 데이터 확인
     
                 // TODO : 투표글 작성 후 라우팅할 주소
-                // router.push({`/ballot/${response.data}`})
+                router.push(`/mypage/admin`);
             } catch (error: any) {
                 console.error(error);
                 alert(error.response.data.message);
