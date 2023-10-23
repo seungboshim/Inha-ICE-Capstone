@@ -7,9 +7,11 @@ export const getBallotListContent = async (status: string) => {
     return result.data.content;
 }
 
-export const getBallotListData = async (status: string, field: string) => {
-    const result = await Server.get(`/voting/ballots?status=${status}`);
-    return result.data.content.map((item: any) => item[field]);
+export const getBallotPageContent = async (status: string, page: number) => {
+    const result = await Server.get(`/voting/ballots?status=${status}&page=${page}`);
+    console.log(status)
+    console.log(result.data.content)
+    return result.data.content;
 }
 
 export const getBallotList = async (status: string, field: string) => {

@@ -107,12 +107,13 @@ export default function VotePost() {
             //         alert(error.response.data.message.path)
             //     })
 
+            router.push(`/mypage/admin`);
+            
             try {
                 const response = await Server.post('/admins/voting/ballots', dataToSend);
-                console.log(response.data);  // 응답 데이터 확인
+                // console.log(response.data);  // 응답 데이터 확인
     
                 // TODO : 투표글 작성 후 라우팅할 주소
-                router.push(`/mypage/admin`);
             } catch (error: any) {
                 console.error(error);
                 alert(error.response.data.message);

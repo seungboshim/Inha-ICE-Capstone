@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getBallotList, getBallotData, getBallotListContent, getBallotListData } from "@/apis/ballots";
+import { getBallotList, getBallotData, getBallotListContent, getBallotPageContent } from "@/apis/ballots";
 import { Ballot } from "@/apis/types";
 import { useSearchParams } from "next/navigation";
 import VoteItem from "./voteItem";
-
 
 export default function AdminVoteItemList() {
     const [totalPages, setTotalPages] = useState(0);
@@ -13,28 +12,30 @@ export default function AdminVoteItemList() {
     const [pageNumber, setPageNumber] = useState(0);
     const [ballots, setBallots] = useState<Ballot[]>([]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
+        /** '시작전'인 투표의 contents 배열 */
+        const fetchBallotList = async () => {
+            const contents = await getBallotPageContent('시작전', currentPage);
+            setBallots(contents);
+        };
+        fetchBallotList();
+
         // '시작전'인 투표 목록
-        // getBallotList('시작전', 'totalPages').then((pages) => {
-        //     setTotalPages(pages);
-        //     console.log(totalPages);
-        // });
+        getBallotList('시작전', 'totalPages').then((pages) => {
+            setTotalPages(pages);
+            //console.log(totalPages);
+        });
         // getBallotList('시작전', 'totalElements').then((elem) => {
         //     setTotalElements(elem);
         //     console.log(totalElements)
         // });
-        // getBallotList('시작전', 'pageNumber').then((pageNum) => {
-        //     setPageNumber(pageNum);
-        //     console.log(pageNumber)
-        // });
-
-        /** '시작전'인 투표의 contents 배열 */
-        const fetchBallotList = async () => {
-            const contents = await getBallotListContent('시작전');
-            setBallots(contents);
-        };
-        fetchBallotList();
-    }, []);    
+        getBallotList('시작전', 'pageNumber').then((pageNum) => {
+            setPageNumber(pageNum);
+            console.log(pageNumber)
+        });
+    }, [currentPage]);    
 
     return (
         <div className="flex flex-col mx-4">
@@ -50,6 +51,21 @@ export default function AdminVoteItemList() {
                     )
                 })
             )}
+            <div className="flex justify-between mt-4">
+                <button 
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button 
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} 
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getBallotList, getBallotData, getBallotListContent, getBallotListData } from "@/apis/ballots";
+import { getBallotList, getBallotPageContent, getBallotData, getBallotListContent } from "@/apis/ballots";
 import { useSearchParams } from "next/navigation";
 import VoteItem from "./voteItem";
 
@@ -25,28 +25,31 @@ export default function OngoingVoteItemList() {
     const [pageNumber, setPageNumber] = useState(0);
     const [ballots, setBallots] = useState<Ballot[]>([]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
+        /** '진행중'인 투표의 contents 배열 */
+        const fetchBallotList = async () => {
+            const contents = await getBallotPageContent('진행중', currentPage);
+            setBallots(contents);
+        };
+        fetchBallotList();
+
         // '진행중'인 투표 목록
-        // getBallotList('진행중', 'totalPages').then((pages) => {
-        //     setTotalPages(pages);
-        //     console.log(totalPages);
-        // });
+        getBallotList('진행중', 'totalPages').then((pages) => {
+            setTotalPages(pages);
+            //console.log(totalPages);
+        });
         // getBallotList('진행중', 'totalElements').then((elem) => {
         //     setTotalElements(elem);
         //     console.log(totalElements)
         // });
-        // getBallotList('진행중', 'pageNumber').then((pageNum) => {
-        //     setPageNumber(pageNum);
-        //     console.log(pageNumber)
-        // });
+        getBallotList('진행중', 'pageNumber').then((pageNum) => {
+            setPageNumber(pageNum);
+            console.log(pageNumber)
+        });
 
-        /** '진행중'인 투표의 contents 배열 */
-        const fetchBallotList = async () => {
-            const contents = await getBallotListContent('진행중');
-            setBallots(contents);
-        };
-        fetchBallotList();
-    }, []);    
+    }, [currentPage]);    
 
     return (
         <div className="flex flex-col mx-4">
@@ -62,6 +65,21 @@ export default function OngoingVoteItemList() {
                     )
                 })
             )}
+            <div className="flex justify-between mt-4">
+                <button 
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button 
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} 
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     )
 }
