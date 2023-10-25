@@ -32,6 +32,7 @@ export default function VotePost() {
         subjectRegionError: false,
         subjectGenderError: false,
         detailDescriptionError: false,
+        imageError: false,
     });
 
     const handleChange = (e: any) => {
@@ -54,10 +55,16 @@ export default function VotePost() {
         const isBriefDescriptionValid = formData.ballotBriefDescription.trim() !== "";
         const isStartDateTimeValid = formData.ballotStartDateTime.trim() !== "";
         const isEndDateTimeValid = formData.ballotEndDateTime.trim() !== "";
-        const isSubjectAgeValid = formData.ballotMinAge !== 0 && formData.ballotMaxAge !== 0 && formData.ballotMinAge <= formData.ballotMaxAge;
+        const isSubjectAgeValid = 
+            formData.ballotMinAge !== null && 
+            formData.ballotMaxAge !== null && 
+            formData.ballotMinAge < formData.ballotMaxAge && 
+            formData.ballotMinAge >= 0 && 
+            formData.ballotMaxAge <= 200;
         const isGenderValid = formData.ballotSubjectGender.trim() !== "";
         const isRegionValid = formData.ballotSubjectRegion.trim() !== "";
         const isDetailDescriptionValid = formData.ballotDetailDescription.trim() !== "";
+        const isImageValid = selectedImage;
 
         setValidationErrors({
             nameError: !isNameValid,
@@ -68,11 +75,12 @@ export default function VotePost() {
             subjectGenderError : !isGenderValid,
             subjectRegionError : !isRegionValid,
             detailDescriptionError : !isDetailDescriptionValid,
+            imageError : !isImageValid,
         });
 
         const isAllValid = isNameValid && isBriefDescriptionValid && isStartDateTimeValid 
         && isEndDateTimeValid && isSubjectAgeValid && isGenderValid 
-        && isRegionValid && isDetailDescriptionValid;
+        && isRegionValid && isDetailDescriptionValid && isImageValid;
 
         const updatedFormData = {
             ...formData,
@@ -127,7 +135,8 @@ export default function VotePost() {
                 subjectAgeError : !isSubjectAgeValid,
                 subjectGenderError : !isGenderValid,
                 subjectRegionError : !isRegionValid,
-                detailDescriptionError : !isDetailDescriptionValid
+                detailDescriptionError : !isDetailDescriptionValid,
+                imageError : !isImageValid,
             });
         }
     };
@@ -200,8 +209,8 @@ export default function VotePost() {
                 </div>
                 <div className="flex flex-col md:flex-row mb-8">
                     <div className="flex-col mb-4 md:mb-0">
-                        <span className="text-grey">대표 이미지 첨부</span>
-                        <div className="w-full md:w-48 h-48 border border-grey rounded-lg flex justify-center items-center">
+                        <span className={validationErrors.imageError ? 'text-warning' : 'text-grey'}>대표 이미지 첨부</span>
+                        <div className={`w-full md:w-48 h-48 border ${validationErrors.imageError ? 'border-warning' : 'border-grey'} rounded-lg flex justify-center items-center`}>
                             {selectedImage ? (
                                 <>
                                     <button onClick={handleRemoveImage}>

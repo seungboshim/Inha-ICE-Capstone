@@ -4,6 +4,7 @@ import { getBallotData } from "@/apis/ballots"
 import AdminCandidatesModal from "../modal/adminCandidatesModal";
 import { useRecoilState } from "recoil";
 import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
+import { Candidate } from "@/apis/types";
 
 interface AdminVoteMainProps {
     ballotID: number;
@@ -28,6 +29,8 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
     const [endYear, setEndYear] = useState<number>();
     const [endMonth, setEndMonth] = useState<number>();
     const [endDay, setEndDay] = useState<number>();
+
+    const [candidates, setCandidates] = useState<Candidate[]>([]);
 
     useEffect(() => {
         getBallotData(ballotID, 'ballotName').then((name) => {
@@ -84,6 +87,9 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
         getBallotData(ballotID, 'ballotDetailDescription').then((detail) => {
             setBallotDetailDescription(detail);
         })
+        getBallotData(ballotID, 'candidates').then((candi) => {
+            setCandidates(candi);
+        });
     }, [])
 
     const [modal, setModal] = useRecoilState(isModalState);
@@ -154,12 +160,12 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
             {isLoading && (
                 <span className="text-center">잠시만 기다려주세요...</span>
             )}
-            {!isLoading && modal && (
+            {!isLoading && modal && candidates.length !== 0 && (
                 <span className="text-center">후보자가 등록되었습니다.</span>
             )}
             {modal && (
                 <div>
-                    <AdminCandidatesModal ballotId={ballotID - 1}/>
+                    <AdminCandidatesModal ballotId={ballotID}/>
                 </div>
             )}
         </div>

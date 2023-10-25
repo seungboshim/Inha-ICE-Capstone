@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getBallotList, getBallotPageContent, getBallotData, getBallotListContent } from "@/apis/ballots";
 import { useSearchParams } from "next/navigation";
 import VoteItem from "./voteItem";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl"
 
 type Ballot = {
     ballotId: number,
@@ -73,19 +74,19 @@ export default function CompletedVoteItemList() {
                     )
                 })
             )}
-            <div className="flex justify-between mt-4">
+            <div className={`flex justify-between my-8 ${totalPages === 0 ? 'hidden' : totalPages < 2 ? 'text-grey' : 'text-black'}`}>
                 <button 
                     onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))} 
                     disabled={currentPage === 1}
                 >
-                    Previous
+                    <SlArrowLeft size={24} />
                 </button>
-                <span>Page {currentPage} of {totalPages}</span>
+                <span>{currentPage} / {totalPages}</span>
                 <button 
                     onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} 
                     disabled={currentPage === totalPages}
                 >
-                    Next
+                    <SlArrowRight size={24} />
                 </button>
             </div>
         </div>
