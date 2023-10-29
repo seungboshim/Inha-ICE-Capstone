@@ -58,7 +58,7 @@ export default function VotePost() {
         const isSubjectAgeValid = 
             formData.ballotMinAge !== null && 
             formData.ballotMaxAge !== null && 
-            formData.ballotMinAge < formData.ballotMaxAge && 
+            // formData.ballotMinAge < formData.ballotMaxAge && 
             formData.ballotMinAge >= 0 && 
             formData.ballotMaxAge <= 200;
         const isGenderValid = formData.ballotSubjectGender.trim() !== "";
