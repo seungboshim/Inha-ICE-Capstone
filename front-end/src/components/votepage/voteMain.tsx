@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
 import CandidatesModal from "../modal/candidatesModal"
+import CompletedCandidatesModal from "../modal/completedCandidatesModal"
 
 interface VoteMainProps {
     ballotID: number;
 }
-
 
 export default function VoteMain({ballotID} : VoteMainProps) {
     const [ballotImage, setBallotImage] = useState('');
@@ -164,11 +164,20 @@ export default function VoteMain({ballotID} : VoteMainProps) {
                     </div>
                 </div>
             </div>
-            {modal && (
-                <div>
-                    <CandidatesModal ballotId={ballotID}/>
-                </div>
-            )}
+            {
+                modal && (ballotStatus === '진행중') && (
+                    <div>
+                        <CandidatesModal ballotId={ballotID}/>
+                    </div>
+                )
+            }
+            {
+                modal && (ballotStatus === '마감') && (
+                    <div>
+                        <CompletedCandidatesModal ballotId={ballotID}/>
+                    </div>
+                )
+            }
         </div>
     )
 }
