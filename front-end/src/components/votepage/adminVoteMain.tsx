@@ -141,7 +141,7 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
                     <div className="flex flex-col">
                         <div className="flex justify-between">
                             <span className="font-bold text-2xl">{ballotName}</span>
-                            <button>수정하기</button>
+                            <button>투표 서비스 추가</button>
                         </div>
                         <span className="py-4 border-b border-primary">{ballotBriefDescription}</span>
                         <div className="flex justify-end py-4 mb-8">

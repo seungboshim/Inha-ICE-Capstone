@@ -68,7 +68,6 @@ export default function Profile() {
                     수정하기
                 </button>
                 </div>
-                <UserVoteItemList />
             </div>
         </div>
     )
