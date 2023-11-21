@@ -38,7 +38,7 @@ export default function CandidatesModal({ ballotId }: any) {
         e.preventDefault();
 
         alert("투표가 완료되었습니다. 반영까지 15초의 시간이 소요됩니다.")
-        router.push(`/ballot/ongoing`);
+        router.push(`/ballot/${ballotId}/banner`);
 
         if (selectedCandidateId) {
             try {

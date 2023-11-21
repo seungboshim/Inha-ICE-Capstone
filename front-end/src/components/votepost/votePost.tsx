@@ -4,9 +4,8 @@ import { RiFileAddFill } from "react-icons/ri"
 // import { AiOutlineCalendar } from 'react-icons/ai';
 // import format from 'date-fns/format';
 // import Calendar from "./calendar";
-import { Server } from "@/apis/setting";
+import { Server, FlaskServer } from "@/apis/setting";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 export default function VotePost() {
     const router = useRouter();
@@ -121,7 +120,7 @@ export default function VotePost() {
                 const response = await Server.post('/admins/voting/ballots', dataToSend);
                 // console.log(response.data);  // 응답 데이터 확인
     
-                // TODO : 투표글 작성 후 라우팅할 주소
+                // 탐슨 샘플링 배너 걍 보내기
             } catch (error: any) {
                 console.error(error);
                 alert(error.response.data.message);

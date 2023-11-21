@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getMemberData } from "../../apis/member"
+import UserVoteItemList from "../votelist/userVoteItemList";
 
 export default function Profile() {
     const [name, setName] = useState('');
@@ -67,6 +68,7 @@ export default function Profile() {
                     수정하기
                 </button>
                 </div>
+                <UserVoteItemList />
             </div>
         </div>
     )
