@@ -20,3 +20,11 @@ export const sendBannerStatus = async (ballotId: number, successList: number[], 
     });
     return result.data;
 }
+
+export const createBandits = async (ballotId: number, bannerList: number[]) => {
+    const result = await FlaskServer.post(`/`, {
+        ballotId,
+        bannerList
+    });
+    return result.data;
+}

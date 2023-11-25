@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
-import CandidatesModal from "../modal/candidatesModal"
-import CompletedCandidatesModal from "../modal/completedCandidatesModal"
+import CandidatesModal from "../candidate/candidatesModal"
+import CompletedCandidatesModal from "../candidate/completedCandidatesModal"
 
 interface VoteMainProps {
     ballotID: number;

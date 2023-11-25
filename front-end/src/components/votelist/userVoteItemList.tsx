@@ -31,7 +31,7 @@ export default function UserVoteItemList() {
     return (
         <div className="flex flex-col mx-4">
             {ballots.length === 0 ? (
-                <p className="text-center">완료한 투표가 없습니다.</p>
+                <p className="text-center">참여한 투표가 없습니다.</p>
             ) : (
                 // contents 배열의 객체에서 ballotId 사용
                 ballots.map((item: Ballot) => {

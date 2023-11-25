@@ -31,13 +31,12 @@ export type RegionVote = {
 }
 
 export type AgeGroupVote = {
-    TEENS_OR_LESS: number,
-    TWENTIES: number,
-    THIRTIES: number,
-    FORTIES: number,
-    FIFTIES: number,
-    SIXTIES: number,
-    SEVENTIES_OR_ABOVE: number
+    TEENS_OR_LESS: GenderVote,
+    TWENTIES: GenderVote,
+    THIRTIES: GenderVote,
+    FORTIES: GenderVote,
+    FIFTIES: GenderVote,
+    SIXTIES_OR_ABOVE: GenderVote
 }
 
 export type Candidate = {
@@ -51,4 +50,5 @@ export type Candidate = {
     regionVoteCount?: RegionVote,
     ageGroupPercentage?: AgeGroupVote,
     ageGroupVoteCount?: AgeGroupVote,
+
 }

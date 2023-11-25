@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
 import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
-import AdminCandidatesModal from "../modal/adminCandidatesModal";
+import AdminCandidatesModal from "../candidate/adminCandidatesModal";
 import { useRecoilState } from "recoil";
 import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
 import { Candidate } from "@/apis/types";
+import { createBandits } from "@/apis/thompson";
 
 interface AdminVoteMainProps {
     ballotID: number;
@@ -103,6 +104,13 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
         setModal(false);
     }
 
+    let createdBanners = [1, 2, 3, 4, 5];
+
+    const handleAddBandits = () => {
+        createBandits(ballotID, createdBanners);
+        alert(`서비스 배너 추가 완료!`)
+    }
+
     const VoteButton = () => {
         return (
             <div>
@@ -112,7 +120,9 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
                     </button>                    
                 ) : (
                     <button className="w-40 h-20 bg-primary rounded-lg" onClick={handleModal}>
-                        <span className="text-xl font-bold text-white">후보자 추가</span>
+                        <span className="text-xl font-bold text-white">
+                            후보자 추가    
+                        </span>
                     </button>
                 )}
             </div>
@@ -141,7 +151,9 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
                     <div className="flex flex-col">
                         <div className="flex justify-between">
                             <span className="font-bold text-2xl">{ballotName}</span>
-                            <button>투표 서비스 추가</button>
+                            <button onClick={handleAddBandits}>
+                                투표 서비스 추가
+                            </button>
                         </div>
                         <span className="py-4 border-b border-primary">{ballotBriefDescription}</span>
                         <div className="flex justify-end py-4 mb-8">

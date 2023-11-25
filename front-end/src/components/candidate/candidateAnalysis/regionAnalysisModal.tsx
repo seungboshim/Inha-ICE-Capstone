@@ -12,43 +12,43 @@ export default function RegionAnalysisModal({candidate}:Props) {
     const barChartData = [
         {
             name: "서울",
-            votes: regionVoteCount?.SEOUL
+            votes: regionPercentage?.SEOUL
         },
         {
             name: "경기",
-            votes: regionVoteCount?.GYEONGGI
+            votes: regionPercentage?.GYEONGGI
         },
         {
             name: "인천",
-            votes: regionVoteCount?.INCHEON
+            votes: regionPercentage?.INCHEON
         },
         {
             name: "강원",
-            votes: regionVoteCount?.GANGWON
+            votes: regionPercentage?.GANGWON
         },
         {
             name: "충북",
-            votes: regionVoteCount?.CHUNGCHEONGBUK
+            votes: regionPercentage?.CHUNGCHEONGBUK
         },
         {
             name: "충남",
-            votes: regionVoteCount?.CHUNGCHEONGNAM
+            votes: regionPercentage?.CHUNGCHEONGNAM
         },
         {
             name: "전북",
-            votes: regionVoteCount?.JEOLLABUK
+            votes: regionPercentage?.JEOLLABUK
         },
         {
             name: "전남",
-            votes: regionVoteCount?.JEOLLANAM
+            votes: regionPercentage?.JEOLLANAM
         },
         {
             name: "경북",
-            votes: regionVoteCount?.GYEONGSANGBUK
+            votes: regionPercentage?.GYEONGSANGBUK
         },
         {
             name: "경남",
-            votes: regionVoteCount?.GYEONGSANGNAM
+            votes: regionPercentage?.GYEONGSANGNAM
         },
     ]
 
@@ -63,18 +63,6 @@ export default function RegionAnalysisModal({candidate}:Props) {
                     </BarChart>
                 </ResponsiveContainer>
             </div>
-            {/* {regionPercentage && (
-                <div>
-                    <span>강원 득표율: {regionPercentage.GANGWON.toFixed(3)}%</span>
-                    <span>경기 득표율: {regionPercentage.GYEONGGI.toFixed(3)}%</span>
-                </div>
-            )}
-            {regionVoteCount && (
-                <div>
-                    <span>강원 득표수: {regionVoteCount.GANGWON}표</span>
-                    <span>경기 득표수: {regionVoteCount.GYEONGGI}표</span>
-                </div>
-            )} */}
         </div>
     )
 }

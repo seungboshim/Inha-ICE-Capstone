@@ -37,7 +37,7 @@ export default function CandidatesModal({ ballotId }: any) {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
-        alert("투표가 완료되었습니다. 반영까지 15초의 시간이 소요됩니다.")
+        alert("투표가 완료되었습니다. 반영까지 약 15초가 소요됩니다.")
         router.push(`/ballot/${ballotId}/banner`);
 
         if (selectedCandidateId) {
@@ -55,7 +55,6 @@ export default function CandidatesModal({ ballotId }: any) {
 
     return (
         <div className="flex flex-col items-center mx-4 my-4">
-            {console.log(`후보자 ${candidates.length} 명`)}
             {candidates.length > 0 ? (
                 <div className={`w-full md:w-1/3 md:justify-start`}> 
                     {candidates.map((candidate) => (

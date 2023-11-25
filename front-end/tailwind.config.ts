@@ -17,6 +17,7 @@ const config: Config = {
         primary : '#0094FF',
         brightgrey: '#F9F9F9',
         lightgrey: '#E5E5E5',
+        semigrey: '#C8C8C8',
         grey: '#A3A3A3',
         kakaoyellow: '#FAE100',
         kakaodark: '#262626',

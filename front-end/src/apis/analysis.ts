@@ -14,3 +14,8 @@ export const getAgeBasedAnalysis = async (ballotID: number) => {
     const result = await Server.get(`voting/analysis/age-based/${ballotID}`);
     return result.data;
 }
+
+export const getAgeGenderBasedAnalysis = async (ballotID:number) => {
+    const result = await Server.get(`voting/analysis/age-gender-based/${ballotID}`)
+    return result.data;
+}

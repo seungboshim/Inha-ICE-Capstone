@@ -4,10 +4,10 @@ import { Candidate } from "@/apis/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { getGenderBasedAnalysis, getRegionBasedAnalysis, getAgeBasedAnalysis } from "@/apis/analysis";
-import GenderAnalysisModal from "./genderAnalysisModal";
-import RegionAnalysisModal from "./regionAnalysisModal";
-import AgeAnalysisModal from "./ageAnalysisModal";
+import { getAgeGenderBasedAnalysis, getRegionBasedAnalysis } from "@/apis/analysis";
+import RegionAnalysisModal from "./candidateAnalysis/regionAnalysisModal";
+import AgeGenderAnalysisModal from "./candidateAnalysis/ageGenderAnalysisModal";
+import OverallAnalysisModal from "./analysis/overallAnalysisModal";
 
 export default function CompletedCandidatesModal({ ballotId }: any) {
     const router = useRouter();
@@ -19,9 +19,9 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
     const [selectedCandidateId, setSelectedCandidateId] = useState(0);
 
     /** 후보자 정보 + 득표 정보 */
-    const [candidatesInfo, setCandidatesInfo] = useState<Candidate[]>([]);
+    const [candidatesAgeGenderInfo, setCandidatesAgeGenderInfo] = useState<Candidate[]>([]);
     const [candidatesRegionInfo, setCandidatesRegionInfo] = useState<Candidate[]>([]);
-    const [candidatesAgeGroupInfo, setCandidatesAgeGroupInfo] = useState<Candidate[]>([]);
+
     /** 후보자 득표 정보 모달창 상태관리 */
     const [analysisModal, setAnalysisModal] = useState(false);
 
@@ -41,16 +41,13 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
 
     /** 해당 투표 후보자 정보 + 득표 정보 */
     useEffect(() => {
-        getGenderBasedAnalysis(selectedCandidateId).then((candiInfo) => {
-            setCandidatesInfo(candiInfo)
+        getAgeGenderBasedAnalysis(ballotId).then((candiInfo) => {
+            setCandidatesAgeGenderInfo(candiInfo)
         });
-        getRegionBasedAnalysis(selectedCandidateId).then((candiInfo) => {
+        getRegionBasedAnalysis(ballotId).then((candiInfo) => {
             setCandidatesRegionInfo(candiInfo)
         });
-        getAgeBasedAnalysis(selectedCandidateId).then((candiInfo) => {
-            setCandidatesAgeGroupInfo(candiInfo)
-        });
-    }, [selectedCandidateId])
+    }, [ballotId])
 
     /** 후보자 선택 */
     const handleSelect = (candidateId: number) => {
@@ -63,39 +60,31 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
             setSelectedCandidateId(candidateId);
             // 선택한 후보자의 객체를 candidate에 저장
             const candidate = candidates.find(c => c.candidateId === candidateId);
-            //setSelectedCandidate(candidate || null);
-            // if (!analysisModal) {
-            //     setAnalysisModal(true); // 모달창 열기
-            // } 
         }
     }
-
-    /** 모달창 닫기 */
-    // const handleCloseModal = () => {
-    //     setAnalysisModal(false);
-    //     setSelectedCandidate(null); // 선택된 후보자 상태 초기화
-    // };
 
     /** overall 차트에 쓰일 데이터 */
     const barChartData = candidates.map((candidate) => ({
         name: candidate.candidateName,
-        votes: candidate.candidateVoteCount,
+        득표수: candidate.candidateVoteCount,
     }));
+
+    const ageGenderData = candidatesAgeGenderInfo.map((candidate) => ({
+        name: candidate.candidateName,
+        ageGroup: candidate.ageGroupPercentage,
+    }));
+
+    const regionData = candidatesRegionInfo.map((candidate) => ({
+        name: candidate.candidateName,
+        regionGroup: candidate.regionPercentage,
+    }))
 
     return (
         <div className="flex flex-col items-center mx-4 my-4">
             {candidates.length > 0 ? (
                 <div className={`w-full md:w-1/2 md:justify-start`}> 
                     {/** overall 득표수의 막대 그래프 */}
-                    <div className="flex justify-center">
-                        <ResponsiveContainer width="100%" height={100}>
-                            <BarChart data={barChartData}>
-                                <XAxis dataKey="name"/>
-                                <Tooltip />
-                                <Bar dataKey="votes" fill="#0094FF" barSize={30}/>
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </div>
+                    <OverallAnalysisModal overallData={barChartData} ageGenderData={ageGenderData} regionData={regionData}/>
                     {candidates.map((candidate) => (
                         <>
                         <div 
@@ -112,9 +101,9 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
                         </>
                     ))}
                     {
-                        candidatesInfo.find(c => c.candidateId === selectedCandidateId) && (
-                            <GenderAnalysisModal
-                                candidate={candidatesInfo.find(c => c.candidateId === selectedCandidateId)!} // Non-null assertion operator 사용
+                        candidatesAgeGenderInfo.find(c => c.candidateId === selectedCandidateId) && (
+                            <AgeGenderAnalysisModal
+                                candidate={candidatesAgeGenderInfo.find(c => c.candidateId === selectedCandidateId)!} // Non-null assertion operator 사용
                                 //onClose={handleCloseModal}
                             />
                         )
@@ -123,13 +112,6 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
                         candidatesRegionInfo.find(c => c.candidateId === selectedCandidateId) && (
                             <RegionAnalysisModal 
                                 candidate={candidatesRegionInfo.find(c => c.candidateId === selectedCandidateId)!}
-                            />
-                        )
-                    }
-                    {
-                        candidatesAgeGroupInfo.find(c => c.candidateId === selectedCandidateId) && (
-                            <AgeAnalysisModal 
-                                candidate={candidatesAgeGroupInfo.find(c => c.candidateId === selectedCandidateId)!}
                             />
                         )
                     }

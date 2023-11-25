@@ -118,7 +118,7 @@ export default function VotePost() {
             
             try {
                 const response = await Server.post('/admins/voting/ballots', dataToSend);
-                // console.log(response.data);  // 응답 데이터 확인
+                alert("투표 글 작성이 완료되었습니다. 반영까지 약 15초가 소요됩니다.");
     
                 // 탐슨 샘플링 배너 걍 보내기
             } catch (error: any) {
