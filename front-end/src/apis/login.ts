@@ -71,6 +71,11 @@ export const logout = async () => {
     }
 };
 
+/** accessToken 값 가져오기 */
+export const getAccessToken = () => {
+    return localStorage.getItem('access');
+};
+
 // // 만료된 액세스 토큰 갱신
 // export const getRefresh = async () => {
 //     const accessToken = localStorage.getItem('access');

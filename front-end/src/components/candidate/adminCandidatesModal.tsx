@@ -6,12 +6,14 @@ import Image from "next/image";
 import { RiFileAddFill } from "react-icons/ri";
 import { AiFillPlusCircle } from "react-icons/ai"
 import { useRecoilState } from "recoil";
-import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
+import { isModalState, isLoadingState } from "@/recoil/atoms/ModalAtom";
+import { createBandits } from "@/apis/thompson";
 
 export default function AdminCandidatesModal({ ballotId }: any) {
     const [modal, setModal] = useRecoilState(isModalState);
     const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [isLoading, setIsLoading] = useRecoilState(isLoadingState);
+    const [selectedCandidateId, setSelectedCandidateId] = useState(0);
 
     useEffect(() => {
         getBallotData(ballotId, 'candidates').then((candi) => {
@@ -39,8 +41,6 @@ export default function AdminCandidatesModal({ ballotId }: any) {
             [e.target.name]: e.target.value
         })
     }
-    
-
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -124,15 +124,38 @@ export default function AdminCandidatesModal({ ballotId }: any) {
         setSelectedImage(undefined);
     };
 
+    const handleSelect = (candidateId: number) => {
+        setSelectedCandidateId(candidateId);
+    }
+
+    useEffect(() => {
+        console.log(`${selectedCandidateId} 선택`)
+    }, [handleSelect])
+
+    let createdBanners = [1, 2, 3, 4, 5];
+
+    const handleAddBandits = (candidateId: number) => {
+        createBandits("candidate", candidateId, createdBanners);
+        alert(`후보자 배너 추가 완료!`)
+    }
 
     return (
         <div className="flex flex-col items-center mx-4 my-4">
             {candidates.length > 0 && (
-                <div className="w-full md:w-1/3 md:justify-start"> 
+                <div className="w-full md:w-3/5 md:justify-start"> 
                     {candidates.map((candidate) => (
-                        <div key={candidate.candidateId} className="flex items-center px-4 py-2 border border-grey rounded-lg my-2">
-                            <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>
-                            <span>{candidate.candidateName}</span>
+                        <div key={candidate.candidateId} className="flex h-24 items-center justify-between px-4 py-2 border border-grey rounded-lg my-2">
+                            <div className="flex items-center">
+                                <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>
+                                <span>{candidate.candidateName}</span>
+                            </div>
+                            <AiFillPlusCircle 
+                                size={24} 
+                                className="opacity-50 cursor-pointer"
+                                onClick={() => {
+                                    handleAddBandits(candidate.candidateId);
+                                }}
+                            />
                         </div>
                     ))}
                 </div>

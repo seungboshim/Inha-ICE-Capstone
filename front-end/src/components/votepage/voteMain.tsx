@@ -3,6 +3,9 @@ import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
 import CandidatesModal from "../candidate/candidatesModal"
 import CompletedCandidatesModal from "../candidate/completedCandidatesModal"
+import { useRecoilState } from "recoil";
+import { isAdminState } from "@/recoil/atoms/LoginAtom";
+import TurnoutRegressionModal from "../candidate/regression/turnoutRegressionModal"
 
 interface VoteMainProps {
     ballotID: number;
@@ -29,6 +32,9 @@ export default function VoteMain({ballotID} : VoteMainProps) {
     const [notVoted, setNotVoted] = useState(false);
 
     const [ballotStatus, setBallotStatus] = useState('');
+
+    const [isAdmin, setIsAdmin] = useRecoilState(isAdminState);
+
 
     useEffect(() => {
         getBallotData(ballotID, 'ballotName').then((name) => {
@@ -175,6 +181,13 @@ export default function VoteMain({ballotID} : VoteMainProps) {
                 modal && (ballotStatus === '마감') && (
                     <div>
                         <CompletedCandidatesModal ballotId={ballotID}/>
+                    </div>
+                )
+            }
+            {
+                isAdmin && (ballotStatus === '진행중') && (
+                    <div>
+                        <TurnoutRegressionModal ballotId={ballotID}/>
                     </div>
                 )
             }

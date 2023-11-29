@@ -82,14 +82,14 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
     return (
         <div className="flex flex-col items-center mx-4 my-4">
             {candidates.length > 0 ? (
-                <div className={`w-full md:w-1/2 md:justify-start`}> 
+                <div className={`w-full md:w-3/5 md:justify-start`}> 
                     {/** overall 득표수의 막대 그래프 */}
                     <OverallAnalysisModal overallData={barChartData} ageGenderData={ageGenderData} regionData={regionData}/>
                     {candidates.map((candidate) => (
                         <>
                         <div 
                             key={candidate.candidateId} 
-                            className={`flex items-center px-4 py-2 my-2 border ${candidate.candidateId === selectedCandidateId ? 'border-2 border-primary shadow-md' : 'border-lightgrey'} rounded-lg justify-between`}
+                            className={`flex h-24 items-center px-4 py-2 my-2 border ${candidate.candidateId === selectedCandidateId ? 'border-2 border-primary shadow-md' : 'border-lightgrey'} rounded-lg justify-between`}
                             onClick={() => handleSelect(candidate.candidateId)}
                         >
                             <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>

@@ -7,13 +7,15 @@ export default function LoginInput() {
     const [memberEmail, setMemberEmail] = useState<String>();
     const [memberPassword, setMemberPassword] = useState<String>();
 
+
     const router = useRouter();
 
     async function handleLogin() {
         try {
             const result: any = await getAccessRefreshToken({memberEmail, memberPassword});
-            console.log(result)
+            // console.log(result)
             if (result) {
+                // 로그인 하면 일반 회원인지 admin인지 상태 갱신
                 router.push('/ballot/ongoing')
             }
         } catch(error) {

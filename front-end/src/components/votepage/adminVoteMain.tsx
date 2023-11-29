@@ -3,7 +3,7 @@ import Image from "next/image"
 import { getBallotData } from "@/apis/ballots"
 import AdminCandidatesModal from "../candidate/adminCandidatesModal";
 import { useRecoilState } from "recoil";
-import { isModalState, isLoadingState } from "@/recoil/ModalAtom";
+import { isModalState, isLoadingState } from "@/recoil/atoms/ModalAtom";
 import { Candidate } from "@/apis/types";
 import { createBandits } from "@/apis/thompson";
 
@@ -107,7 +107,7 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
     let createdBanners = [1, 2, 3, 4, 5];
 
     const handleAddBandits = () => {
-        createBandits(ballotID, createdBanners);
+        createBandits("ballot", ballotID, createdBanners);
         alert(`서비스 배너 추가 완료!`)
     }
 

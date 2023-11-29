@@ -7,7 +7,7 @@ interface props {
 
 export default function OverallAnalysisChart({barChartData}:props) {
     return (
-        <div className="w-full my-2">
+        <div className="w-full my-3.5">
             <ResponsiveContainer width="100%" height={140}>
                 <BarChart data={barChartData}>
                     <XAxis dataKey="name"/>

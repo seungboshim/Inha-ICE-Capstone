@@ -12,7 +12,7 @@ export default function RegionAnalysisChart({data}: any) {
     function ageButton(label: string) {
         return (
             <button
-                className={`px-4 py-1 rounded-full ${label === selectedTab ? `text-white bg-primary` : `text-black`} cursor-pointer`}
+                className={`px-2 py-1 rounded-full ${label === selectedTab ? `text-white bg-primary` : `text-black`} cursor-pointer`}
                 onClick={() => handleSelect(label)}
             >  
                 {label}

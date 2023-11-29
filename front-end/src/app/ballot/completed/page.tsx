@@ -8,7 +8,7 @@ export default function Completed() {
     return (
         <>
         <Header />
-        <div className="mx-24">
+        <div className="mx-4 md:mx-24">
             <CompletedTab />
             <CompletedVoteItemList />
         </div>

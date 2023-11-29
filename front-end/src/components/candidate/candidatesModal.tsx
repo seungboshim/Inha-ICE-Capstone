@@ -6,10 +6,10 @@ import Image from "next/image";
 import { RiFileAddFill } from "react-icons/ri";
 import { AiFillPlusCircle } from "react-icons/ai"
 import { useRouter } from "next/navigation";
+import CandidateBannerWrap from "../banners/candidateBannerWrap";
 
 export default function CandidatesModal({ ballotId }: any) {
     const router = useRouter();
-
     const [candidates, setCandidates] = useState<Candidate[]>([]);
     const [selectedCandidateId, setSelectedCandidateId] = useState(0);
 
@@ -21,13 +21,17 @@ export default function CandidatesModal({ ballotId }: any) {
 
     const handleSelect = (candidateId: number) => {
         setSelectedCandidateId(candidateId);
-        console.log(`${candidateId} 선택`)
+        
 
         setFormData({
             ...formData,
             candidateId: candidateId,
         });
     }
+
+    useEffect(() => {
+        console.log(`${selectedCandidateId} 선택`)
+    }, [handleSelect])
 
     const [formData, setFormData] = useState({
         ballotId: ballotId,
@@ -56,11 +60,11 @@ export default function CandidatesModal({ ballotId }: any) {
     return (
         <div className="flex flex-col items-center mx-4 my-4">
             {candidates.length > 0 ? (
-                <div className={`w-full md:w-1/3 md:justify-start`}> 
+                <div className={`w-full md:w-3/5 md:justify-start`}> 
                     {candidates.map((candidate) => (
                         <div 
                             key={candidate.candidateId} 
-                            className={`flex items-center px-4 py-2 my-2 cursor-pointer border ${
+                            className={`flex h-24 items-center px-4 py-2 my-2 cursor-pointer border ${
                                 selectedCandidateId === candidate.candidateId ? 'border-2 border-primary shadow-md' : 'border-grey'
                             } rounded-lg`}
                             onClick={() => handleSelect(candidate.candidateId)}
@@ -69,6 +73,11 @@ export default function CandidatesModal({ ballotId }: any) {
                             <span>{candidate.candidateName}</span>
                         </div>
                     ))}
+                    {selectedCandidateId !== 0 &&
+                        <CandidateBannerWrap 
+                            candidateId={selectedCandidateId}
+                        />
+                    }
                 </div>
             ) : (
                 <span>후보자를 불러오는 중입니다...</span>
