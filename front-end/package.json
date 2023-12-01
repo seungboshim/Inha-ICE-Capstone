@@ -27,7 +27,8 @@
     "recharts": "^2.9.2",
     "recoil": "^0.7.7",
     "tailwindcss": "3.3.3",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "victory": "^36.7.0"
   },
   "devDependencies": {
     "@types/react-datepicker": "^4.15.0"
