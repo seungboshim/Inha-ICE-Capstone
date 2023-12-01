@@ -75,7 +75,7 @@ export default function VoteItem( {ballotID}: VoteItemProps ) {
         getBallotData(ballotID, 'ballotBriefDescription').then((brief) => {
             setBallotBriefDescription(brief);
         })
-    }, [])
+    }, [ballotID])
 
     return (
         <div className="flex mx-2 border border-brightgrey shadow-lg rounded-lg">

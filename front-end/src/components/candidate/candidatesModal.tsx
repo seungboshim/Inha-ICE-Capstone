@@ -17,7 +17,7 @@ export default function CandidatesModal({ ballotId }: any) {
         getBallotData(ballotId, 'candidates').then((candi) => {
             setCandidates(candi);
         });
-    }, [])
+    }, [ballotId])
 
     const handleSelect = (candidateId: number) => {
         setSelectedCandidateId(candidateId);
@@ -31,7 +31,7 @@ export default function CandidatesModal({ ballotId }: any) {
 
     useEffect(() => {
         console.log(`${selectedCandidateId} 선택`)
-    }, [handleSelect])
+    }, [selectedCandidateId])
 
     const [formData, setFormData] = useState({
         ballotId: ballotId,

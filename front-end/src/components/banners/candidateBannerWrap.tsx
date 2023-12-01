@@ -41,7 +41,7 @@ export default function CandidateBannerWrap({candidateId}: props) {
 
     useEffect(() => {
         handleSubmit();
-    }, [candidateId])
+    }, [candidateId, handleSubmit])
 
     return (
         <div className="flex justify-center mt-4">

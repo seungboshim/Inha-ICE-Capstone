@@ -23,7 +23,7 @@ export default function BannerWrap() {
             //console.log(orderdList);
             //console.log(failureList);
         })
-    }, [])
+    }, [ballotId])
 
     /** 배너 클릭시 successList, FailureList 갱신 */
     const handleBannerClick = (banner: number) => {

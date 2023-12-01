@@ -28,18 +28,21 @@ export default function TurnoutRegressionModal({ballotId}: any) {
         {name: "18시", 투표율: 40.82807192807198},
     ]
 
-    const currentHour = new Date().getHours() - 10;
+    const currentHour = new Date().getHours();
+    console.log(currentHour)
     //const currentHour = 10;
 
     const dataBeforeCurrentHour = regressionData.filter(data => parseInt(data.name) <= currentHour);
     const dataAfterCurrentHour = regressionData.filter(data => parseInt(data.name) > currentHour);
-    dataAfterCurrentHour.unshift(dataBeforeCurrentHour[dataBeforeCurrentHour.length - 1]);
+    if (dataBeforeCurrentHour.length > 0) {
+        dataAfterCurrentHour.unshift(dataBeforeCurrentHour[dataBeforeCurrentHour.length - 1]);
+    }
 
     // const minY = Math.min(...regressionData.map(data => data.투표율));
     // const maxY = Math.max(...regressionData.map(data => data.투표율));
 
     return (
-        <div className='my-4 mx-20'>
+        <div className='my-4 lg:mx-20'>
             <VictoryChart 
                 theme={VictoryTheme.material}
                 width={600}

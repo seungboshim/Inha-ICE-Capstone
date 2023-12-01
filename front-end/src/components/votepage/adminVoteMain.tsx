@@ -33,6 +33,8 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
 
     const [candidates, setCandidates] = useState<Candidate[]>([]);
 
+    const [modal, setModal] = useRecoilState(isModalState);
+
     useEffect(() => {
         getBallotData(ballotID, 'ballotName').then((name) => {
             setBallotName(name);
@@ -91,18 +93,44 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
         getBallotData(ballotID, 'candidates').then((candi) => {
             setCandidates(candi);
         });
-    }, [])
 
-    const [modal, setModal] = useRecoilState(isModalState);
+        if (!modal) {
+            handleModalClose();
+        }
+    }, [ballotID, modal])
+
+
 
     const handleModal = () => {
         setModal(true);
-        console.log(modal)
+        //console.log(modal)
     }
 
     const handleModalClose = () => {
         setModal(false);
+        //console.log(modal);
     }
+
+    useEffect(() => {
+        console.log("isLoading changed:", isLoading);
+        setModal(false);
+        if (isLoading) {
+            console.log("타이머 시작")
+            // 15초 후에 실행되는 로직
+            const timer = setTimeout(async () => {
+                const candi = await getBallotData(ballotID, 'candidates');
+                setCandidates(candi);
+                setIsLoading(false);
+                setModal(true); // 모달 다시 열기
+            }, 15000);
+    
+            // 컴포넌트가 언마운트될 때 타이머 제거
+            return () => {
+                console.log("타이머 clear")
+                clearTimeout(timer);
+            }
+        }
+    }, [isLoading]);
 
     let createdBanners = [1, 2, 3, 4, 5];
 
@@ -128,6 +156,10 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
             </div>
         )
     }
+    
+    // useEffect (() => {
+    //     console.log(modal);
+    // }, [modal])
 
     return (
         <div className="flex flex-col">
@@ -172,7 +204,7 @@ export default function AdminVoteMain({ballotID} : AdminVoteMainProps) {
             {isLoading && (
                 <span className="text-center">잠시만 기다려주세요...</span>
             )}
-            {!isLoading && modal && candidates.length !== 0 && (
+            {!isLoading && !modal && candidates.length !== 0 && (
                 <span className="text-center">후보자가 등록되었습니다.</span>
             )}
             {modal && (

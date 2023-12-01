@@ -19,7 +19,7 @@ export default function AdminCandidatesModal({ ballotId }: any) {
         getBallotData(ballotId, 'candidates').then((candi) => {
             setCandidates(candi);
         });
-    }, [])
+    }, [ballotId])
 
     const [formData, setFormData] = useState({
         ballotId: ballotId,
@@ -89,25 +89,7 @@ export default function AdminCandidatesModal({ ballotId }: any) {
         }
     }
 
-    useEffect(() => {
-        console.log("isLoading changed:", isLoading);
-        if (isLoading) {
-            console.log("타이머 시작")
-            // 15초 후에 실행되는 로직
-            const timer = setTimeout(async () => {
-                const candi = await getBallotData(ballotId, 'candidates');
-                setCandidates(candi);
-                setIsLoading(false);
-                setModal(true); // 모달 다시 열기
-            }, 15000);
-    
-            // 컴포넌트가 언마운트될 때 타이머 제거
-            return () => {
-                console.log("타이머 clear")
-                clearTimeout(timer);
-            }
-        }
-    }, [isLoading]);
+
 
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [selectedImage, setSelectedImage] = useState<File>();
@@ -128,9 +110,9 @@ export default function AdminCandidatesModal({ ballotId }: any) {
         setSelectedCandidateId(candidateId);
     }
 
-    useEffect(() => {
-        console.log(`${selectedCandidateId} 선택`)
-    }, [handleSelect])
+    // useEffect(() => {
+    //     console.log(`${selectedCandidateId} 선택`)
+    // }, [handleSelect])
 
     let createdBanners = [1, 2, 3, 4, 5];
 

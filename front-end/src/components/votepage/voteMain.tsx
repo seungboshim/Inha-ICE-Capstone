@@ -100,7 +100,7 @@ export default function VoteMain({ballotID} : VoteMainProps) {
         getBallotData(ballotID, 'ballotStatus').then((status) => {
             setBallotStatus(status);
         })
-    }, [])
+    }, [ballotID])
 
     const [modal, setModal] = useState(false);
 

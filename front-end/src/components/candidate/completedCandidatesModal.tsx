@@ -34,7 +34,7 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
             //setTotalVotes(total);
             //console.log(totalVotes)
         });
-    }, [])
+    }, [ballotId])
 
     /** 선택한 후보자 정보 저장, 선택안된 경우 null */
     const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);

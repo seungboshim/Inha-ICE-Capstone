@@ -37,7 +37,7 @@ export default function AdminVoteItemList() {
             setPageNumber(pageNum);
             console.log(pageNumber)
         });
-    }, [currentPage]);    
+    }, [currentPage, pageNumber]);    
 
     return (
         <div className="flex flex-col mx-4">

@@ -58,7 +58,7 @@ export default function CompletedVoteItemList() {
         //     console.log(pageSize);
         // })
         console.log(`${currentPage}입니다`)
-    }, [currentPage]);
+    }, [currentPage, pageNumber]);
 
     return (
         <div className="flex flex-col mx-4">
