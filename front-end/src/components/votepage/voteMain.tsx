@@ -11,6 +11,7 @@ interface VoteMainProps {
     ballotID: number;
 }
 
+// dd
 export default function VoteMain({ballotID} : VoteMainProps) {
     const [ballotImage, setBallotImage] = useState('');
     const [ballotName, setBallotName] = useState('');
