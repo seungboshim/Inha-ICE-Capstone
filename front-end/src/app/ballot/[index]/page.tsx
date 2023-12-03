@@ -3,6 +3,7 @@
 import Header from "@/components/layout/header";
 import VoteMain from "../../../components/votepage/voteMain";
 import { usePathname } from "next/navigation";
+import Head from "next/head";
 
 export default function Vote() {
     const ballotIndexUrl = usePathname();
@@ -10,9 +11,15 @@ export default function Vote() {
     const ballot_index = parseInt(ballotIndexUrl.replace('/ballot/', ''));
 
     return (
+        <>
+        <Head>
+            <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        </Head>
         <div>
             <Header />
             <VoteMain ballotID={ballot_index}/>
         </div>
+        </>
+
     )
 }
