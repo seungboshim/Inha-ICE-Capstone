@@ -45,11 +45,12 @@ export default function BannerWrap() {
     return (
         <div className="flex justify-center mt-12">
             <div className="flex-col w-1/2 text-center">
-                <span>투표와 관련한 기사를 둘러보세요.</span>
+                <span>투표와 관련한 정보를 둘러보세요.</span>
                 {orderdList.map((banner) => {
                     return (
                         <div key={banner}>
                             <BannerComponent 
+                                ballotId={ballotId}
                                 bannerId={banner}
                                 handleClick={() => handleBannerClick(banner)}
                             />

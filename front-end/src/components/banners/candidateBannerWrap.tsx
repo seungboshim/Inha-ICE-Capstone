@@ -46,11 +46,12 @@ export default function CandidateBannerWrap({candidateId}: props) {
     return (
         <div className="flex justify-center mt-4">
             <div className="flex-col w-4/5 text-center">
-                <span>후보자와 관련한 기사를 둘러보세요.</span>
+                <span>후보자와 관련한 정보를 둘러보세요.</span>
                 {displayedList.map((banner) => {
                     return (
                         <div key={banner}>
                             <CandidateBannerComponent 
+                                candidateId={candidateId}
                                 bannerId={banner}
                                 handleClick={() => handleBannerClick(banner)}
                             />
