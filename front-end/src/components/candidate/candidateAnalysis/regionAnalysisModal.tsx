@@ -12,43 +12,43 @@ export default function RegionAnalysisModal({candidate}:Props) {
     const barChartData = [
         {
             name: "서울",
-            votes: regionPercentage?.SEOUL
+            지지율: regionPercentage?.SEOUL
         },
         {
             name: "경기",
-            votes: regionPercentage?.GYEONGGI
+            지지율: regionPercentage?.GYEONGGI
         },
         {
             name: "인천",
-            votes: regionPercentage?.INCHEON
+            지지율: regionPercentage?.INCHEON
         },
         {
             name: "강원",
-            votes: regionPercentage?.GANGWON
+            지지율: regionPercentage?.GANGWON
         },
         {
             name: "충북",
-            votes: regionPercentage?.CHUNGCHEONGBUK
+            지지율: regionPercentage?.CHUNGCHEONGBUK
         },
         {
             name: "충남",
-            votes: regionPercentage?.CHUNGCHEONGNAM
+            지지율: regionPercentage?.CHUNGCHEONGNAM
         },
         {
             name: "전북",
-            votes: regionPercentage?.JEOLLABUK
+            지지율: regionPercentage?.JEOLLABUK
         },
         {
             name: "전남",
-            votes: regionPercentage?.JEOLLANAM
+            지지율: regionPercentage?.JEOLLANAM
         },
         {
             name: "경북",
-            votes: regionPercentage?.GYEONGSANGBUK
+            지지율: regionPercentage?.GYEONGSANGBUK
         },
         {
             name: "경남",
-            votes: regionPercentage?.GYEONGSANGNAM
+            지지율: regionPercentage?.GYEONGSANGNAM
         },
     ]
 
@@ -58,8 +58,8 @@ export default function RegionAnalysisModal({candidate}:Props) {
                 <ResponsiveContainer width="100%" height={100}>
                     <BarChart data={barChartData}>
                         <XAxis dataKey="name"/>
-                        <Tooltip />
-                        <Bar dataKey="votes" fill="#0094FF" barSize={15}/>
+                        <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
+                        <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                     </BarChart>
                 </ResponsiveContainer>
             </div>

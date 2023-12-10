@@ -128,7 +128,7 @@ export default function AdminCandidatesModal({ ballotId }: any) {
                     {candidates.map((candidate) => (
                         <div key={candidate.candidateId} className="flex h-24 items-center justify-between px-4 py-2 border border-grey rounded-lg my-2">
                             <div className="flex items-center">
-                                <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>
+                                <Image src={candidate.candidateImage} alt={candidate.candidateName} width={56} height={56} objectFit="contain" className="mr-4"/>
                                 <span>{candidate.candidateName}</span>
                             </div>
                             <AiFillPlusCircle 

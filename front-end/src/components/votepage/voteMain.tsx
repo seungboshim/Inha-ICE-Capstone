@@ -161,7 +161,11 @@ export default function VoteMain({ballotID} : VoteMainProps) {
                         <div className="flex justify-end py-4 mb-8">
                             <div className="flex flex-col font-bold items-end">
                                 <span>{`${startYear}년 ${startMonth}월 ${startDay}일~ ${endYear}년 ${endMonth}월 ${endDay}일`}</span>
-                                <span>{`${ballotSubjectRegion} 거주 ${ballotMinAge}세 ~ ${ballotMaxAge}세 ${ballotSubjectGender}`}</span>
+                                {ballotMaxAge === null || ballotMinAge === null ? (
+                                    <span>{ballotSubjectRegion} 거주 전 연령 {ballotSubjectGender}</span>
+                                ) : (
+                                    <span>{ballotSubjectRegion} 거주 {ballotMinAge}세 ~ {ballotMaxAge}세 {ballotSubjectGender}</span>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -186,7 +190,7 @@ export default function VoteMain({ballotID} : VoteMainProps) {
                 )
             }
             {
-                isAdmin && (ballotStatus === '진행중') && (
+                isAdmin && (ballotStatus === '진행중') && (ballotID === 2) && (
                     <div>
                         <TurnoutRegressionModal ballotId={ballotID}/>
                     </div>

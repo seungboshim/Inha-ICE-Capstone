@@ -71,7 +71,7 @@ export default function AgeGenderAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={teenagerData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
                             <Legend />
                             <Bar dataKey="남성" fill="#004E7A" barSize={20} />
                             <Bar dataKey="여성" fill="#EE89A1" barSize={20} />
@@ -82,7 +82,7 @@ export default function AgeGenderAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={twentiesData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
                             <Legend />
                             <Bar dataKey="남성" fill="#004E7A" barSize={20} />
                             <Bar dataKey="여성" fill="#EE89A1" barSize={20} />
@@ -93,7 +93,7 @@ export default function AgeGenderAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={thirtiesData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
                             <Legend />
                             <Bar dataKey="남성" fill="#004E7A" barSize={20} />
                             <Bar dataKey="여성" fill="#EE89A1" barSize={20} />
@@ -104,7 +104,7 @@ export default function AgeGenderAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={fortiesData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
                             <Legend />
                             <Bar dataKey="남성" fill="#004E7A" barSize={20} />
                             <Bar dataKey="여성" fill="#EE89A1" barSize={20} />
@@ -115,7 +115,7 @@ export default function AgeGenderAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={fiftiesData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
                             <Legend />
                             <Bar dataKey="남성" fill="#004E7A" barSize={20} />
                             <Bar dataKey="여성" fill="#EE89A1" barSize={20} />
@@ -126,7 +126,7 @@ export default function AgeGenderAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={seniorData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
                             <Legend />
                             <Bar dataKey="남성" fill="#004E7A" barSize={20} />
                             <Bar dataKey="여성" fill="#EE89A1" barSize={20} />

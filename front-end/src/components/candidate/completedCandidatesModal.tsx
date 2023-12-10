@@ -92,7 +92,7 @@ export default function CompletedCandidatesModal({ ballotId }: any) {
                             className={`flex h-24 items-center px-4 py-2 my-2 border ${candidate.candidateId === selectedCandidateId ? 'border-2 border-primary shadow-md' : 'border-lightgrey'} rounded-lg justify-between`}
                             onClick={() => handleSelect(candidate.candidateId)}
                         >
-                            <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>
+                            <Image src={candidate.candidateImage} alt={candidate.candidateName} width={56} height={56} objectFit="contain" className="mr-4"/>
                             <span>{candidate.candidateName}</span>
                             <span className="text-primary">
                                 {`${candidate.candidateVoteCount} 표`}

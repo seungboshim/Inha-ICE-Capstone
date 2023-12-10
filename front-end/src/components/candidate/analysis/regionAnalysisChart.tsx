@@ -89,7 +89,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={seoulData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -98,7 +98,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={gyeonggiData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -107,7 +107,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={incheonData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -116,7 +116,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={gangwonData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -125,7 +125,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={chungcheongbukData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -134,7 +134,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={chungcheongNamData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -143,7 +143,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={jeollaBukData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -152,7 +152,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={jeollaNamData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -161,7 +161,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={gyeongsangBukData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>
@@ -170,7 +170,7 @@ export default function RegionAnalysisChart({data}: any) {
                     <ResponsiveContainer width="100%" height={120}>
                         <BarChart data={gyeongsangNamData}>
                             <XAxis dataKey="name"/>
-                            <Tooltip />
+                            <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                             <Bar dataKey="지지율" fill="#0094FF" barSize={15}/>
                         </BarChart>
                     </ResponsiveContainer>

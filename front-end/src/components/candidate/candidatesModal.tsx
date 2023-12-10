@@ -69,7 +69,7 @@ export default function CandidatesModal({ ballotId }: any) {
                             } rounded-lg`}
                             onClick={() => handleSelect(candidate.candidateId)}
                         >
-                            <Image src={candidate.candidateImage} alt={candidate.candidateName} width={80} height={80} className="mr-4"/>
+                            <Image src={candidate.candidateImage} alt={candidate.candidateName} width={56} height={56} objectFit="contain" className="mr-4"/>
                             <span>{candidate.candidateName}</span>
                         </div>
                     ))}

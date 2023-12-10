@@ -37,8 +37,8 @@ export default function AgeGenderAnalysisModal({candidate}:Props) {
         },
         {
             name: "60대 이상",
-            pv: ageGroupPercentage?.SIXTIES_OR_ABOVE.MALE,
-            uv: ageGroupPercentage?.SIXTIES_OR_ABOVE.FEMALE,
+            남성: ageGroupPercentage?.SIXTIES_OR_ABOVE.MALE,
+            여성: ageGroupPercentage?.SIXTIES_OR_ABOVE.FEMALE,
         },
     ]
 
@@ -48,7 +48,7 @@ export default function AgeGenderAnalysisModal({candidate}:Props) {
                 <ResponsiveContainer width="100%" height={120}>
                     <BarChart data={barChartData}>
                         <XAxis dataKey="name"/>
-                        <Tooltip />
+                        <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`}/>
                         <Legend />
                         <Bar dataKey="남성" fill="#004E7A" barSize={20} />
                         <Bar dataKey="여성" fill="#EE89A1" barSize={20} />

@@ -27,7 +27,7 @@ export default function BannerComponent({ballotId, bannerId, handleClick}:Props)
             >
                 <div className="flex justify-evenly w-full m-4">
                     <div className="w-1/4">
-                        <img src={image_path} className="w-16 h-16" alt="이미지"/>
+                        <img src={image_path} className="w-16 h-16 object-contain" alt="이미지"/>
                     </div>
                     <div className="flex w-3/4 items-center">
                         <span className="w-4/5 text-center">{title}</span>

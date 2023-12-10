@@ -1,5 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, Style } from 'victory';
+import { VictoryLine, VictoryChart, VictoryTheme, VictoryAxis, VictoryPortal, VictoryLabel } from 'victory';
 import { getPolynomialRegression } from '@/apis/regression';
 import { useState, useEffect } from 'react';
 
@@ -12,6 +12,21 @@ export default function TurnoutRegressionModal({ballotId}: any) {
     //         console.log(poly);
     //     })
     // }, [])
+
+    const trueData = [
+        {name: "7시", 투표율: 2.1},
+        {name: "8시", 투표율: 5},
+        {name: "9시", 투표율: 8.1},
+        {name: "10시", 투표율: 11.80},
+        {name: "11시", 투표율: 16.00},
+        {name: "12시", 투표율: 20.30},
+        {name: "13시", 투표율: 24.37},
+        {name: "14시", 투표율: 27.87},
+        {name: "15시", 투표율: 31.17},
+        {name: "16시", 투표율: 36.67},
+        {name: "17시", 투표율: 38.77},
+        {name: "18시", 투표율: 40.17},
+    ]
 
     const regressionData = [
         {name: "7시", 투표율: 2.1},
@@ -28,9 +43,9 @@ export default function TurnoutRegressionModal({ballotId}: any) {
         {name: "18시", 투표율: 40.82807192807198},
     ]
 
-    const currentHour = new Date().getHours();
-    console.log(currentHour)
-    //const currentHour = 10;
+    //const currentHour = new Date().getHours();
+    //console.log(currentHour)
+    const currentHour = 9;
 
     const dataBeforeCurrentHour = regressionData.filter(data => parseInt(data.name) <= currentHour);
     const dataAfterCurrentHour = regressionData.filter(data => parseInt(data.name) > currentHour);
@@ -49,7 +64,7 @@ export default function TurnoutRegressionModal({ballotId}: any) {
                 height={200}
             >
                 <VictoryAxis dependentAxis 
-                    domain={[0, 100]}
+                    domain={[0, 50]}
                     style={{ 
                         tickLabels: { fontSize: 8 },
                         axis: { strokeWidth: 1 }
@@ -62,6 +77,35 @@ export default function TurnoutRegressionModal({ballotId}: any) {
                     }}
                 />
                 <VictoryLine 
+                    data={trueData}
+                    //labels={({ datum }:any) => `${Number(datum.투표율).toFixed(2)}%`}
+                    x="name"
+                    y="투표율"
+                    style={{
+                        data: { stroke: "#FFBF00", opacity: 0.5, strokeWidth: 1 },
+                        //labels: { fontSize: 6, fill: "#FFBF00" }
+                    }}
+                    animate={{
+                        duration: 2000,
+                        onLoad: { duration: 1000 }
+                    }}
+                />
+                <VictoryPortal>
+                    <>
+                    {trueData.map((datum, index) => (
+                        <VictoryLabel
+                            key={index}
+                            text={`${Number(datum.투표율).toFixed(2)}%`}
+                            x={50 + 45.5*index}
+                            y={120 - 7*index}
+                            textAnchor="middle"
+                            style={{ fontSize: 6, fill: "#FFBF00", opacity: 0.7 }}
+                            dy={0}
+                        />
+                    ))}
+                    </>
+                </VictoryPortal>
+                <VictoryLine 
                     data={dataBeforeCurrentHour}
                     labels={
                         ({ datum }:any) => `${Number(datum.투표율).toFixed(2)}%`
@@ -70,7 +114,7 @@ export default function TurnoutRegressionModal({ballotId}: any) {
                     y="투표율"
                     style={{
                         data: { stroke: "#0094FF", strokeWidth: 1 },
-                        labels: { fontSize: 6 },
+                        labels: { fontSize: 6, fill: "#0094FF" },
                     }}
                     animate={{
                         duration: 2000,
@@ -83,8 +127,8 @@ export default function TurnoutRegressionModal({ballotId}: any) {
                     x="name"
                     y="투표율"
                     style={{
-                        data: { stroke: "#0094FF", opacity: 0.3, strokeWidth: 1 },
-                        labels: { fontSize: 6 }
+                        data: { stroke: "#0094FF", opacity: 0.5, strokeWidth: 1 },
+                        labels: { fontSize: 6, fill: "#0094FF", opacity: 0.7 }
                     }}
                     animate={{
                         duration: 2000,
@@ -92,47 +136,16 @@ export default function TurnoutRegressionModal({ballotId}: any) {
                     }}
                 />
             </VictoryChart>
-                {/* <ResponsiveContainer width="100%" height={200}>
-                    <LineChart
-                        width={500}
-                        height={200}
-                        data={regressionData}
-                        margin={{
-                        top: 10,
-                        right: 30,
-                        left: 0,
-                        bottom: 0,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis domain={[0, 100]} />
-                        <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
-                        <Line connectNulls 
-                            type="monotone" dataKey="투표율" stroke="#0094FF" fill="#0094FF" 
-                            className={`${parseInt(regressionData[0].name) > currentHour ? 'opacity-50' : 'opacity-100'}`}
-                        />
-                    </LineChart>
-                </ResponsiveContainer> */}
-                {/* <ResponsiveContainer width="50%" height={200}>
-                    <LineChart
-                        width={500}
-                        height={200}
-                        data={dataAfterCurrentHour}
-                        margin={{
-                        top: 10,
-                        right: 30,
-                        left: 0,
-                        bottom: 0,
-                        }}
-                    >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
-                        <YAxis domain={[0, 100]} className='hidden'/>
-                        <Tooltip formatter={(value) => `${Number(value).toFixed(2)}%`} />
-                        <Line connectNulls type="monotone" dataKey="투표율" stroke="#0094FF" fill="#0094FF" className='opacity-50'/>
-                    </LineChart>
-                </ResponsiveContainer> */}
+            <div className='flex justify-center'>
+                <div className='flex items-center'>
+                    <div className='w-3 h-3 bg-primary mr-2'></div>
+                    <span className='text-sm'>예측 값</span>
+                </div>
+                <div className='flex items-center ml-4'>
+                    <div className='w-3 h-3 bg-truedata mr-2'></div>
+                    <span className='text-sm'>실제 값</span>
+                </div>
+            </div>
         </div>
     )
 }

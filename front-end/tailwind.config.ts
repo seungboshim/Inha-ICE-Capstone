@@ -24,7 +24,8 @@ const config: Config = {
         approve: '#27AE60',
         warning: '#EB5757',
         male: '#004E7A',
-        female: '#EE89A1'
+        female: '#EE89A1',
+        truedata: '#FFBF00'
       }
     },
   },
